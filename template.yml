@@ -1,0 +1,11 @@
+Resources:
+  AwsServices:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: gdal-python
+      Description: gdal, rasterio, numpy 
+      ContentUri: ./python/lambda
+      CompatibleRuntimes:
+        - python3.8
+      LicenseInfo: MIT
+      RetentionPolicy: Retain
