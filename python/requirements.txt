@@ -7,3 +7,4 @@ rio_toa
 rio_tiler
 pillow
 rio-color
+rpcm

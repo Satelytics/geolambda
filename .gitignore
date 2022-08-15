@@ -4,3 +4,4 @@ lambda-layer-deploy.zip
 .DS_Store
 python/lambda/
 lambda/
+lib
