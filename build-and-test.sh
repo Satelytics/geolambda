@@ -2,11 +2,12 @@
 
 VERSION=$(cat VERSION)
 PYVERSION=$(cat python/PYVERSION)
-
+rm -rf lambda-deploy.zip
 docker build . -t satelytics/geolambda:${VERSION}
 docker run --rm -v $PWD:/home/geolambda -it satelytics/geolambda:${VERSION} package.sh
 #
 cd python
+rm -rf lambda-deploy.zip
 sudo rm -rf lambda/*
 docker build . --build-arg VERSION=${VERSION}  --build-arg AWS_SECRET_ACCESS_KEY=$SECRET --build-arg AWS_ACCESS_KEY_ID=$KEY -t satelytics/geolambda:${VERSION}-python
 docker run -v ${PWD}:/home/geolambda -t satelytics/geolambda:${VERSION}-python package-python.sh
