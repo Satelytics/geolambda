@@ -7,4 +7,5 @@ rio_toa
 rio_tiler
 pillow
 rio-color
-rpcm
+git+https://github.com/Satelytics/srtm4.git
+git+https://github.com/Satelytics/rpcm.git
