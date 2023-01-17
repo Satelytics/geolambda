@@ -18,11 +18,11 @@ strip $DEPLOY_DIR/lib/* || true
 #rsync -ax $PREFIX/share/proj $DEPLOY_DIR/share/
 
 # Get Python version
-PYVERSION=$(cat /root/.pyenv/version)
+PYVERSION=$(cat /root/version)
 MAJOR=${PYVERSION%%.*}
 MINOR=${PYVERSION#*.}
 PYVER=${PYVERSION%%.*}.${MINOR%%.*}
-PYPATH=/root/.pyenv/versions/$PYVERSION/lib/python${PYVER}/site-packages/
+PYPATH=/tmp/venv/lib/python${PYVER}/site-packages/
 
 echo Creating deploy package for Python $PYVERSION
 
