@@ -1,7 +1,7 @@
+lambda/
+python/lambda/
 .env
 lambda-deploy.zip
+lambda
 lambda-layer-deploy.zip
 .DS_Store
-python/lambda/
-lambda/
-lib
