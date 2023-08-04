@@ -1,7 +1,8 @@
 GDAL==3.2.1
 rasterio==1.2.0 --no-binary rasterio
 shapely==1.7.1
-pyproj==3.0.0.post1
+urllib3==1.26.16
+pyproj
 numexpr
 lxml
 psycopg2-binary

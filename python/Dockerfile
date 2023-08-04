@@ -20,17 +20,19 @@ RUN \
     cd ..; \
     rm -rf Python-${PYVERSION}; \
     python3 -m venv /tmp/venv; \
-    pip install --upgrade pip
+    pip install pip==20.0.2
+#pip install --upgrade pip
  
 COPY requirements*.txt ./
 
 RUN \
+    #pip install setuptools==57.5.0; \    
     pip install -r requirements-pre.txt; \
     pip install -r requirements.txt
 #RUN export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" && export  AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
 ARG AWS_ACCESS_KEY_ID
 ARG AWS_SECRET_ACCESS_KEY
-RUN   aws s3 cp s3://sioprocess/ripp/releases/latest.tgz . \ 
+RUN aws s3 cp s3://sioprocess/ripp/releases/latest.tgz . \ 
       && tar xzvf ./latest.tgz \
       && cd ripp \
       && pip install PyYAML sh && pip install . \
