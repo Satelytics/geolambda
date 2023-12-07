@@ -11,5 +11,8 @@ rio_tiler
 pillow
 rio-color
 pytz
+boto3~=1.20.50
+botocore~=1.29.109
+requests~=2.28.2
 git+https://github.com/Satelytics/srtm4.git
 git+https://github.com/Satelytics/rpcm.git
