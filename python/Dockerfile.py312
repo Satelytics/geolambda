@@ -1,0 +1,54 @@
+FROM geolambda-base:local
+
+LABEL maintainer="Satelytics"
+LABEL authors="Production Python 3.12 Lambda Layer"
+
+ARG PYVERSION=3.12.7
+# install Python to system and virtual environment in /tmp/venv
+ENV \
+    PATH=/tmp/venv/bin:$PATH
+
+RUN \
+    cd /tmp; \
+    echo  ${PYVERSION} > /root/version; \
+    wget https://www.python.org/ftp/python/${PYVERSION}/Python-${PYVERSION}.tgz; \
+    tar xzf Python-${PYVERSION}.tgz; \
+    cd Python-${PYVERSION}; \
+    ./configure --prefix=/usr/local --enable-optimizations --with-lto --enable-shared; \
+    make -j$(nproc); \
+    make install; \
+    ldconfig; \
+    cd ..; \
+    rm -rf Python-${PYVERSION}*; \
+    echo "=== PYTHON INSTALLATION DEBUG ==="; \
+    ls -la /usr/local/bin/ | grep python; \
+    which python3; \
+    which python3.12; \
+    /usr/local/bin/python3 --version || echo "python3 not found"; \
+    /usr/local/bin/python3.12 --version || echo "python3.12 not found"; \
+    echo "=== CREATING VENV ==="; \
+    /usr/local/bin/python3.12 -m venv /tmp/venv || /usr/local/bin/python3 -m venv /tmp/venv; \
+    echo "=== VENV CREATED ==="; \
+    /tmp/venv/bin/python --version; \
+    /tmp/venv/bin/pip install --upgrade pip setuptools wheel
+ 
+COPY requirements-py312.txt ./requirements.txt
+COPY requirements-pre-py312.txt ./requirements-pre.txt
+
+# Install exact production requirements but Python 3.12 compatible versions
+# Set GDAL environment variables for Python binding compilation
+ENV GDAL_CONFIG=/usr/local/bin/gdal-config
+ENV GEOS_CONFIG=/usr/local/bin/geos-config
+RUN \
+    pip install -r requirements-pre.txt; \
+    pip install -r requirements.txt
+
+# Install RIPP from local tar file (same as production)
+COPY latest.tgz ./
+RUN   tar xzvf ./latest.tgz \
+      && cd ripp \
+      && pip install PyYAML sh && pip install . \
+      && cd .. && rm -rf ripp \
+      && rm -rf latest.tgz
+
+COPY bin/* /usr/local/bin/
