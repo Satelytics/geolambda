@@ -1,5 +1,5 @@
 # Package versions compatible with old pip - Python 3.12 support
-GDAL==3.2.1
+# Skip GDAL - base image already has GDAL libraries, rasterio provides Python bindings
 rasterio==1.2.10 --no-binary rasterio
 shapely==1.7.1
 pyproj==3.0.0.post1
