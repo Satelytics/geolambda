@@ -1,0 +1,38 @@
+FROM geolambda-base:local
+
+LABEL maintainer="Satelytics"
+LABEL authors="Python 3.12 Lambda Layer"
+
+ARG PYVERSION=3.12.7
+# install Python to system and virtual environment in /tmp/venv
+ENV \
+    PATH=/tmp/venv/bin:$PATH
+
+RUN \
+    cd /tmp; \
+    echo  ${PYVERSION} > /root/version; \
+    wget https://www.python.org/ftp/python/${PYVERSION}/Python-${PYVERSION}.tgz; \
+    tar xzf Python-${PYVERSION}.tgz; \
+    cd Python-${PYVERSION}; \
+    ./configure --enable-optimizations; \
+    make install; \
+    cd ..; \
+    rm -rf Python-${PYVERSION}*; \
+    python3 -m venv /tmp/venv; \
+    pip install --upgrade pip setuptools wheel
+
+COPY requirements-py312.txt ./requirements.txt
+COPY requirements-pre-py312.txt ./requirements-pre.txt
+
+RUN \
+    pip install -r requirements-pre.txt; \
+    pip install -r requirements.txt
+
+# Install RIPP from local tar file (since we can't access S3 directly)
+COPY latest.tgz ./
+RUN tar xzf ./latest.tgz \
+    && cd ripp \
+    && pip install PyYAML sh && pip install . \
+    && cd .. && rm -rf ripp latest.tgz
+
+COPY bin/* /usr/local/bin/

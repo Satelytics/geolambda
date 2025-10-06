@@ -20,7 +20,7 @@ fi
 
 # Build Docker image using production approach (native x86_64)
 echo "Building Docker image with Python 3.12 for x86_64 platform..."
-docker build -f Dockerfile.py312-clean \
+docker build -f Dockerfile.py312-simple \
     -t geolambda-python312-production .
 
 # Run the same packaging script as production
