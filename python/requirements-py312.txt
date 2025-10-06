@@ -1,15 +1,15 @@
-# Production-matching requirements - compatible with base image GDAL 3.2.1
-# Skip GDAL python package since rasterio provides GDAL bindings
-rasterio==1.2.0 --no-binary rasterio
-shapely==1.7.1
-pyproj==3.0.0.post1
-numexpr
-pillow
-lxml
-PyYAML
-requests
-psycopg2-binary
-python-dateutil
-urllib3
+# Python 3.12 compatible requirements
+# Modern versions that work with Python 3.12
+rasterio==1.3.9 --no-binary rasterio
+shapely==2.0.2
+pyproj==3.6.1
+numexpr==2.8.7
+pillow==10.1.0
+lxml==4.9.3
+PyYAML==6.0.1
+requests==2.31.0
+psycopg2-binary==2.9.9
+python-dateutil==2.8.2
+urllib3==2.0.7
 git+https://github.com/Satelytics/srtm4.git
 git+https://github.com/Satelytics/rpcm.git

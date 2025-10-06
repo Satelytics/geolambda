@@ -1,1 +1,5 @@
-numpy==1.19.5
+# Build dependencies for Python 3.12
+numpy==1.26.2
+cython==3.0.5
+setuptools==69.0.2
+wheel==0.42.0
