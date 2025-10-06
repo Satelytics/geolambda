@@ -4,7 +4,7 @@ set -e
 echo "Building Python 3.12 layer using PRODUCTION method on x86_64..."
 
 VERSION=1.0.0
-cd geolambda/python
+cd python
 
 # Clean up any previous builds
 rm -rf lambda-deploy.zip lambda/*
