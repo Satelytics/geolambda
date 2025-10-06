@@ -18,8 +18,8 @@ RUN \
     make -j$(nproc) install; \
     cd ..; \
     rm -rf Python-${PYVERSION}*; \
-    python3 -m venv /tmp/venv; \
-    pip install --upgrade pip setuptools wheel
+    /usr/local/bin/python3.12 -m venv /tmp/venv; \
+    /tmp/venv/bin/pip install --upgrade pip setuptools wheel
  
 COPY requirements-py312.txt ./requirements.txt
 COPY requirements-pre-py312.txt ./requirements-pre.txt
@@ -28,14 +28,14 @@ COPY requirements-pre-py312.txt ./requirements-pre.txt
 ENV GDAL_CONFIG=/usr/local/bin/gdal-config
 ENV GEOS_CONFIG=/usr/local/bin/geos-config
 RUN \
-    pip install -r requirements-pre.txt; \
-    pip install -r requirements.txt
+    /tmp/venv/bin/pip install -r requirements-pre.txt; \
+    /tmp/venv/bin/pip install -r requirements.txt
 
 # Install RIPP from local tar file
 COPY latest.tgz ./
 RUN tar xzf ./latest.tgz \
     && cd ripp \
-    && pip install PyYAML sh && pip install . \
+    && /tmp/venv/bin/pip install PyYAML sh && /tmp/venv/bin/pip install . \
     && cd .. && rm -rf ripp latest.tgz
 
 COPY bin/* /usr/local/bin/
