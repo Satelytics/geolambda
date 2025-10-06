@@ -1,5 +1,3 @@
-# Build dependencies for Python 3.12
-numpy==1.26.2
-cython==3.0.5
-setuptools==69.0.2
-wheel==0.42.0
+# Build dependencies compatible with old pip
+numpy==1.19.5
+cython

@@ -1,0 +1,18 @@
+# Package versions compatible with old pip - Python 3.12 support
+GDAL==3.2.1
+rasterio==1.2.10 --no-binary rasterio
+shapely==1.7.1
+pyproj==3.0.0.post1
+numexpr
+pillow
+lxml
+PyYAML
+requests
+psycopg2-binary
+python-dateutil
+urllib3
+pytz
+boto3
+botocore
+git+https://github.com/Satelytics/srtm4.git
+git+https://github.com/Satelytics/rpcm.git
