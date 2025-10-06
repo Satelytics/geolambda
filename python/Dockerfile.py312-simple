@@ -4,6 +4,10 @@ LABEL maintainer="Satelytics"
 LABEL authors="Python 3.12 Lambda Layer"
 
 ARG PYVERSION=3.12.7
+
+# Install SSL development libraries for Python
+RUN yum install -y openssl-devel libffi-devel
+
 # install Python to system and virtual environment in /tmp/venv
 ENV \
     PATH=/tmp/venv/bin:$PATH
@@ -14,8 +18,8 @@ RUN \
     wget https://www.python.org/ftp/python/${PYVERSION}/Python-${PYVERSION}.tgz; \
     tar xzf Python-${PYVERSION}.tgz; \
     cd Python-${PYVERSION}; \
-    ./configure; \
-    make -j$(nproc); \
+    ./configure --with-openssl=/usr; \
+    make -j4; \
     make install; \
     cd ..; \
     rm -rf Python-${PYVERSION}*; \
