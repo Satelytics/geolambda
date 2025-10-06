@@ -14,7 +14,8 @@ RUN \
     wget https://www.python.org/ftp/python/${PYVERSION}/Python-${PYVERSION}.tgz; \
     tar xzf Python-${PYVERSION}.tgz; \
     cd Python-${PYVERSION}; \
-    ./configure --enable-optimizations; \
+    ./configure; \
+    make -j$(nproc); \
     make install; \
     cd ..; \
     rm -rf Python-${PYVERSION}*; \
